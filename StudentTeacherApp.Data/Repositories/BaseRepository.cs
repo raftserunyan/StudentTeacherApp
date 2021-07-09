@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using StudentTeacherApp.Data.Model.Data;
 
 namespace StudentTeacherApp.Data.Repositories
@@ -16,5 +19,7 @@ namespace StudentTeacherApp.Data.Repositories
 
 			_context = context;
 		}
+
+		
 	}
 }

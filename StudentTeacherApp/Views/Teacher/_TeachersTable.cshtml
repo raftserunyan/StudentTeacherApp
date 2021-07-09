@@ -1,0 +1,64 @@
+﻿@model IEnumerable<Teacher>
+
+@{
+	Layout = null;
+}
+
+@foreach (var item in Model)
+{
+	<tr>
+		<td>@item.Name</td>
+		<td>
+			<a href="#" class="btn btn-warning">View Students</a>
+			<a href="#" class="btn btn-primary" data-toggle="modal" data-target="#EditTeacherModal" onclick="FillEditModal(@item.Id)">Edit</a>
+			<a href="#" class="btn btn-danger" onclick="DeleteRecord(@item.Id)">Delete</a>
+		</td>
+	</tr>
+
+}
+
+
+	<script>
+		function DeleteRecord(id) {
+			$.ajax({
+				type: "GET",
+				url: '/Teacher/Delete/',
+				cache: false,
+				contentType: "application/json; charset=utf-8",
+				data: { "itemId": id },
+				datatype: "json",
+				success: function (data) {
+					$('#table_body').html(data);
+				},
+				error: function (error) {
+					console.log("Couldn't delete the record");
+				}
+			});
+		}
+
+		//async function getData (id) {
+		//	let response = await fetch(`http://localhost:30098/Teacher/Edit?teacherId=${id}`)
+		//	let div = document.querySelector('#EditTeacherModal')
+		//	await response
+		//	console.log(response)
+		//	div.append(response)
+		//}
+
+		function FillEditModal(id) {
+			$.ajax({
+				type: "GET",
+				url: '/Teacher/Edit/?id=',
+				cache: false,
+				contentType: "application/json; charset=utf-8",
+				data: { "teacherId": id },
+				datatype: "json",
+				success: function (data) {
+					console.log("Edity kanchinq");
+					$('#EditTeacherModal').html(data);
+				},
+				error: function (error) {
+					console.log("Couldn't load the edit modal");
+				}
+			});
+		}
+	</script>

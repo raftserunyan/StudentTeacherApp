@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
@@ -43,9 +42,9 @@ namespace StudentTeacherApp.Data.Repositories
 			return await _context.Set<Teacher>().FindAsync(itemId);
 		}
 
-		public  List<Teacher> GetAll()
+		public async Task<List<Teacher>> GetAll()
 		{
-			return _context.Set<Teacher>().ToList();
+			return await _context.Set<Teacher>().ToListAsync();
 		}
 
 		public async Task<Teacher> Update(Teacher item)

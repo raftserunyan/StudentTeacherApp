@@ -8,7 +8,7 @@ namespace StudentTeacherApp.Data.Interfaces
 	{
 		Task<Teacher> Add(Teacher item);
 
-		List<Teacher> GetAll();
+		Task<List<Teacher>> GetAll();
 
 		Task<Teacher> Get(int itemId);
 
