@@ -10,6 +10,8 @@ namespace StudentTeacherApp.Data.Interfaces
 
 		Task<List<Student>> GetAll();
 
+		List<Student> GetAllWithTeachers();
+
 		Task<Student> Get(int itemId);
 
 		Task<Student> Update(Student item);

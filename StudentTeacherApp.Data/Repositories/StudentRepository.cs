@@ -5,6 +5,7 @@ using StudentTeacherApp.Data.Model.Data;
 using StudentTeacherApp.Data.Model.Model;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace StudentTeacherApp.Data.Repositories
 {
@@ -56,5 +57,9 @@ namespace StudentTeacherApp.Data.Repositories
 			await _context.SaveChangesAsync();
 		}
 
+		public List<Student> GetAllWithTeachers()
+		{
+			return _context.Set<Student>().Include(i => i.Teacher).ToList();
+		}
 	}
 }

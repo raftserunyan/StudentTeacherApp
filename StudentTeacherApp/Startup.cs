@@ -1,12 +1,12 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using StudentTeacherApp.Data.Model.Data;
+using StudentTeacherApp.Data.Interfaces;
+using StudentTeacherApp.Data.Repositories;
 
 namespace StudentTeacherApp
 {
@@ -23,6 +23,11 @@ namespace StudentTeacherApp
 		public void ConfigureServices(IServiceCollection services)
 		{
 			services.AddControllersWithViews();
+			services.AddDbContext<StudentTeacherAppContext>(i =>
+				i.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+
+			services.AddScoped<IStudentRepository, StudentRepository>();
+			services.AddScoped<ITeacherRepository, TeacherRepository>();
 		}
 
 		// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
