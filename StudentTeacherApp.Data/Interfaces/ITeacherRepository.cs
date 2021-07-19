@@ -12,6 +12,8 @@ namespace StudentTeacherApp.Data.Interfaces
 
 		Task<Teacher> Get(int itemId);
 
+		Task<Teacher> GetWithStudents(int itemId);
+
 		Task<Teacher> Update(Teacher item);
 
 		Task Delete(int itemId);

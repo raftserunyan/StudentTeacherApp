@@ -1,0 +1,60 @@
+﻿@model IEnumerable<Student>
+
+@foreach (var item in Model)
+{
+<tr>
+	<td>@item.Id</td>
+	<td>@item.Name</td>
+	<td>@item.Teacher.Name</td>
+
+	<td>
+		@*<a href="#" class="btn btn-warning" data-toggle="modal" data-target="#ViewStudentsModal" onclick="FillViewStudentsModal(@item.Id)">View Students</a>*@
+		<a href="#" class="btn btn-primary" data-toggle="modal" data-target="#EditStudentModal" onclick="FillEditModal(@item.Id)">Edit</a>
+		<a href="#" class="btn btn-danger" onclick="DeleteRecord(@item.Id)">Delete</a>
+	</td>
+</tr>
+}
+
+<script>
+	function DeleteRecord(id) {
+		$.ajax({
+			type: "GET",
+			url: '/Students/Delete/',
+			cache: false,
+			contentType: "application/json; charset=utf-8",
+			data: { "itemId": id },
+			datatype: "json",
+			success: function (data) {
+				$('#studentsTable').html(data);
+			},
+			error: function (error) {
+				console.log("Couldn't delete the record");
+			}
+		});
+	}
+
+	function FillEditModal(id) {
+		$.ajax({
+			type: "GET",
+			url: '/Students/Edit/',
+			cache: false,
+			contentType: "application/json; charset=utf-8",
+			data: { "studentId": id },
+			datatype: "json",
+			success: function (data) {
+				$('#EditStudentModal').html(data);
+			},
+			error: function (error) {
+				console.log("Couldn't load the edit modal");
+			}
+		});
+	}
+
+		//async function FillEditModal (id) {
+		//	let response = await fetch(`http://localhost:30098/Teacher/Edit?teacherId=${id}`)
+		//	let div = document.querySelector('#EditTeacherModal')
+		//	await response
+		//	console.log(response)
+		//	div.append(response)
+		//}
+</script>

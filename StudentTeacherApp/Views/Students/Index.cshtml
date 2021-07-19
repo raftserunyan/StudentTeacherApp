@@ -7,26 +7,32 @@
 <div class="container">
 	<div class="d-flex justify-content-between mb-3">
 		<h1 class="d-inline">Students</h1>
-		<a class="btn btn-lg btn-warning col-sm-1 d-flex justify-content-center" asp-controller="Students" asp-action="Add">
+		<a class="btn btn-lg btn-warning col-sm-1 d-flex justify-content-center" data-toggle="modal" data-target="#AddStudentModal">
 			<i class="fa fa-plus fa-2x"></i>
 		</a>
 	</div>
 
 	<table class="table table-bordered table-striped">
-		<thead>
+		<thead class="bg-secondary">
 			<tr>
+				<th>ID</th>
 				<th>Name</th>
 				<th>Teacher</th>
+				<th>Details</th>
 			</tr>
 		</thead>
-		<tbody>
-			@foreach (var item in Model)
-			{
-				<tr>
-					<td>@item.Name</td>
-					<td>@item.Teacher.Name</td>
-				</tr>
-			}
+		<tbody id="studentsTable">
+			@await Html.PartialAsync(@"~/Views/Students/Partials/_StudentsTable.cshtml", @Model)
 		</tbody>
 	</table>
+</div>
+
+@*Add Student Modal*@
+<div id="AddStudentModal" class="modal" tabindex="-1" role="dialog">
+	@await Html.PartialAsync(@"~/Views/Students/Partials/_AddStudent.cshtml", new Student())
+</div>
+
+@*Edit Student Modals*@
+<div id="EditStudentModal" class="modal" tabindex="-1" role="dialog">
+
 </div>

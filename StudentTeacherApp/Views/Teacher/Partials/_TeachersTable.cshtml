@@ -9,7 +9,7 @@
 	<tr>
 		<td>@item.Name</td>
 		<td>
-			<a href="#" class="btn btn-warning">View Students</a>
+			<a href="#" class="btn btn-warning" data-toggle="modal" data-target="#ViewStudentsModal" onclick="FillViewStudentsModal(@item.Id)">View Students</a>
 			<a href="#" class="btn btn-primary" data-toggle="modal" data-target="#EditTeacherModal" onclick="FillEditModal(@item.Id)">Edit</a>
 			<a href="#" class="btn btn-danger" onclick="DeleteRecord(@item.Id)">Delete</a>
 		</td>
@@ -36,24 +36,33 @@
 			});
 		}
 
-		//async function getData (id) {
-		//	let response = await fetch(`http://localhost:30098/Teacher/Edit?teacherId=${id}`)
-		//	let div = document.querySelector('#EditTeacherModal')
-		//	await response
-		//	console.log(response)
-		//	div.append(response)
-		//}
-
-		function FillEditModal(id) {
+		function FillViewStudentsModal(id) {
 			$.ajax({
 				type: "GET",
-				url: '/Teacher/Edit/?id=',
+				url: '/Teacher/ViewStudents/',
 				cache: false,
 				contentType: "application/json; charset=utf-8",
 				data: { "teacherId": id },
 				datatype: "json",
 				success: function (data) {
-					console.log("Edity kanchinq");
+					$('#ViewStudentsModal').html(data);
+				},
+				error: function (error) {
+					console.log("Couldn't load the view-students modal");
+				}
+			});
+		}
+		
+
+		function FillEditModal(id) {
+			$.ajax({
+				type: "GET",
+				url: '/Teacher/Edit/',
+				cache: false,
+				contentType: "application/json; charset=utf-8",
+				data: { "teacherId": id },
+				datatype: "json",
+				success: function (data) {
 					$('#EditTeacherModal').html(data);
 				},
 				error: function (error) {
@@ -61,4 +70,12 @@
 				}
 			});
 		}
+
+		//async function FillEditModal (id) {
+		//	let response = await fetch(`http://localhost:30098/Teacher/Edit?teacherId=${id}`)
+		//	let div = document.querySelector('#EditTeacherModal')
+		//	await response
+		//	console.log(response)
+		//	div.append(response)
+		//}
 	</script>

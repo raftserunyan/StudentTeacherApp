@@ -13,24 +13,28 @@
 	</div>
 
 	<table class="table table-bordered table-striped">
-		<thead>
+		<thead class="bg-secondary">
 			<tr>
 				<th>Name</th>
-				<th>Students</th>
+				<th>Details</th>
 			</tr>
 		</thead>
 		<tbody id="table_body">
-			@await Html.PartialAsync(@"~/Views/Teacher/_TeachersTable.cshtml", Model)
+			@await Html.PartialAsync(@"~/Views/Teacher/Partials/_TeachersTable.cshtml", Model)
 		</tbody>
 	</table>
 </div>
 
 @*Add Teacher Modal*@
-@await Html.PartialAsync(@"~/Views/Shared/Partials/_AddTeacher.cshtml", new Teacher())
+@await Html.PartialAsync(@"~/Views/Teacher/Partials/_AddTeacher.cshtml", new Teacher())
 
-@*Edit Teacher Modal*@
+@*Edit Teacher Modals*@
 <div id="EditTeacherModal" class="modal" tabindex="-1" role="dialog">
 
 </div>
 
+@*View Students Modals*@
+<div id="ViewStudentsModal" class="modal" tabindex="-1" role="dialog">
+
+</div>
 

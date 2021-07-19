@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using StudentTeacherApp.Data.Interfaces;
@@ -42,6 +43,10 @@ namespace StudentTeacherApp.Data.Repositories
 			return await _context.Set<Teacher>().FindAsync(itemId);
 		}
 
+		public async Task<Teacher> GetWithStudents(int itemId)
+		{
+			return await _context.Set<Teacher>().Include(i => i.Students).FirstOrDefaultAsync(i => i.Id == itemId);
+		}
 		public async Task<List<Teacher>> GetAll()
 		{
 			return await _context.Set<Teacher>().ToListAsync();

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using StudentTeacherApp.Data.Interfaces;
 using StudentTeacherApp.Data.Model.Model;
@@ -34,15 +31,28 @@ namespace StudentTeacherApp.UI.Controllers
 		{
 			await _teacherRepo.Delete(itemId);
 
-			return PartialView("_TeachersTable", await _teacherRepo.GetAll());
+			return PartialView(@"~/Views/Teacher/Partials/_TeachersTable.cshtml", await _teacherRepo.GetAll());
 		}
 
 		[HttpGet]
 		public async Task<IActionResult> Edit(int teacherId)
 		{
 			var teacher = await _teacherRepo.Get(teacherId);
-			return PartialView("~/Views/Shared/Partials/_EditTeacher.cshtml", teacher);
+			return PartialView(@"~/Views/Teacher/Partials/_EditTeacher.cshtml", teacher);
+		}
+		[HttpPost]
+		public async Task<IActionResult> Edit(Teacher teacher)
+		{
+			await _teacherRepo.Update(teacher);
+			return RedirectToAction("Index");
 		}
 
+		[HttpGet]
+		public async Task<IActionResult> ViewStudents(int teacherId)
+		{
+			var teacher = await _teacherRepo.GetWithStudents(teacherId);
+
+			return PartialView(@"~/Views/Teacher/Partials/_ViewStudents.cshtml", teacher);
+		}
 	}
 }
